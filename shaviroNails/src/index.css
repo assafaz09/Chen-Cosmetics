@@ -1,0 +1,87 @@
+/* Base styles for Hebrew website */
+:root {
+  --main-bg: #faf7f4;
+  --accent-bg: #d9b899;
+  --primary-brown: #5b3a1b;
+  --text-brown: #3a2c1a;
+  --border-brown: #bfa07a;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--main-bg);
+  color: var(--text-brown);
+  font-family: "Assistant", sans-serif;
+  direction: rtl;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-brown);
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  color: var(--primary-brown);
+  transition: color 0.3s;
+}
+a:hover {
+  color: var(--border-brown);
+}
+
+button,
+.cta-button {
+  background: var(--main-bg);
+  color: var(--primary-brown);
+  border: 2px solid var(--border-brown);
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+}
+button:hover,
+.cta-button:hover {
+  background: var(--accent-bg);
+  color: var(--white);
+  border-color: var(--primary-brown);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #feca57, #ff6b6b);
+}
