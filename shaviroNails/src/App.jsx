@@ -35,8 +35,7 @@ function App() {
     {
       title: "עיצוב ציפורניים",
       description: "מניקור מקצועי, ג'ל פוליש, בניית ציפורניים, עיצובים מיוחדים",
-
-      src: "shaviroNails/src/chenPic.JPG",
+      src: "/chenPic.JPG",
     },
     {
       title: "עיצוב גבות",
@@ -53,10 +52,11 @@ function App() {
   ];
 
   // Placeholder images - you can replace these with actual photos
+
   const galleryImages = [
     {
       id: 2,
-      src: "chenNails.jpg",
+      src: "/chenNails.jpg",
       alt: "עיצוב ציפורניים 2",
     },
     {
@@ -195,7 +195,7 @@ function App() {
             </div>
             <img
               className="about-img"
-              src="\henAbout.jpg"
+              src="/henAbout.jpg"
               alt="עיצוב ציפורניים"
             />
           </div>
@@ -207,9 +207,10 @@ function App() {
           <div className="about-block">
             <img
               className="about-beforeafter"
-              src="\eyebrowsHen.jpg"
+              src="/eyebrowsHen.jpg"
               alt="עיצוב גבות לפני אחרי"
             />
+
             <div className="about-text">
               <h2 className="about-title">המשימה שלנו</h2>
               <p>
