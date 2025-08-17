@@ -29,7 +29,29 @@ function useScrollAnimation() {
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [currentBackgroundIndex, setCurrentBackgroundIndex] = useState(0);
   useScrollAnimation();
+
+  // תמונות רקע מתחלפות - כאן תוכלי להחליף את התמונות
+  const backgroundImages = [
+    "/chen-mainPic.jpg", // תמונת רקע ראשונה
+    "main11.png",
+    "/main12.png",
+    "main123.png",
+
+    // תמונת רקע חמישית
+  ];
+
+  // החלפת תמונות רקע כל 5 שניות
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBackgroundIndex(
+        (prevIndex) => (prevIndex + 1) % backgroundImages.length
+      );
+    }, 5000); // 5 שניות
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
 
   const services = [
     {
@@ -73,6 +95,17 @@ function App() {
       src: "/1chenE.jpg",
       alt: "איפור מקצועי 1",
     },
+    {
+      id: 6,
+      src: "Neutral Minimalist Beauty Lash Before After Collage Instagram Post.jpg",
+      alt: "לפני ואחרי ריסים - תמונה מ-Cloudinary",
+    },
+    {
+      id: 7,
+      src: "IMG_0843.jpg",
+      alt: "לפני ואחרי ריסים - תמונה מ-Cloudinary",
+    },
+   
   ];
 
   return (
@@ -114,8 +147,27 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with Changing Background */}
       <section id="home" className="hero">
+        {/* Dynamic Background Images */}
+        <div className="hero-backgrounds">
+          {backgroundImages.map((image, index) => (
+            <div
+              key={index}
+              className={`hero-background ${
+                index === currentBackgroundIndex ? "active" : ""
+              }`}
+              style={{
+                backgroundImage: `url(${image})`,
+                zIndex: index === currentBackgroundIndex ? 1 : 0,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Background Overlay */}
+        <div className="hero-overlay"></div>
+
         <div className="hero-content">
           <h1>CHEN Cosmetics</h1>
           <h2>מעצבת ציפורניים וגבות מקצועית</h2>
@@ -129,6 +181,20 @@ function App() {
           >
             קבעי תור עכשיו
           </button>
+        </div>
+
+        {/* Background Image Indicators */}
+        <div className="background-indicators">
+          {backgroundImages.map((_, index) => (
+            <button
+              key={index}
+              className={`indicator ${
+                index === currentBackgroundIndex ? "active" : ""
+              }`}
+              onClick={() => setCurrentBackgroundIndex(index)}
+              aria-label={`עבור לתמונה ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -194,8 +260,35 @@ function App() {
             </div>
             <img
               className="about-img"
-              src="/henAbout.jpg"
-              alt="עיצוב ציפורניים"
+              src="chen1221.png"
+              alt="רותו"
+              style={{
+                display: "block",
+                width: "100%",
+                maxWidth: "400px",
+                margin: "0 auto",
+              }}
+              onLoad={() => {
+                console.log("✅ תמונה נטענה בהצלחה מ-Cloudinary!");
+              }}
+              onError={(e) => {
+                console.error("❌ תמונה לא נטענה מ-Cloudinary");
+                console.log("🔄 מנסה תמונות גיבוי...");
+
+                // נסה תמונות גיבוי שונות
+                if (e.target.src.includes("IMG_6673_r331io.jpg")) {
+                  console.log("🔄 מנסה PNG...");
+                  e.target.src =
+                    "https://res.cloudinary.com/dqkqz6n1z/image/upload/v1718030000/IMG_6673_r331io.png";
+                } else if (e.target.src.includes("IMG_6673_r331io.png")) {
+                  console.log("🔄 מנסה בלי סיומת...");
+                  e.target.src =
+                    "https://res.cloudinary.com/dqkqz6n1z/image/upload/v1718030000/IMG_6673_r331io";
+                } else {
+                  console.log("🔄 מציג תמונה מקומית...");
+                  e.target.src = "/henAbout.jpg";
+                }
+              }}
             />
           </div>
 
@@ -206,7 +299,7 @@ function App() {
           <div className="about-block">
             <img
               className="about-beforeafter"
-              src="/eyebrowsHen.jpg"
+              src="main123.png"
               alt="עיצוב גבות לפני אחרי"
             />
             <div className="about-text">

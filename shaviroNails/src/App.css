@@ -153,10 +153,6 @@
 /* Hero Section - simple fade in */
 .hero {
   background: var(--main-bg);
-  background-image: url("/chen-mainPic.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -167,15 +163,53 @@
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
+/* Dynamic Background Images */
+.hero-backgrounds {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  opacity: 0.3;
+  z-index: 0;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  /* התאמה מושלמת לרוחב המסך */
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.hero-background.active {
+  opacity: 1;
+}
+
+/* התאמה למסכים רחבים */
+@media (min-width: 1920px) and (max-width: 1919px) {
+  .hero-background {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* Background Overlay */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .hero-content {
@@ -185,14 +219,48 @@
   padding: 2rem;
 }
 
+/* Background Image Indicators */
+.background-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 3;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.indicator.active {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 1);
+  transform: scale(1.3);
+}
+
 .hero h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background: none;
   -webkit-background-clip: text;
   -webkit-text-fill-color: unset;
   background-clip: text;
+  color: white;
 }
 
 .hero h2 {
@@ -201,13 +269,16 @@
   font-weight: 300;
   animation: fadeInUp 1s ease-out 0.5s both;
   color: var(--primary-brown);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.95;
   animation: fadeInUp 1s ease-out 0.7s both;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .cta-button {
@@ -220,10 +291,13 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s, color 0.3s, border 0.3s;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
   animation: fadeInUp 1s ease-out 0.9s both;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--primary-brown);
 }
 
 .cta-button::before {
@@ -944,6 +1018,17 @@
     grid-template-columns: 1fr;
   }
 
+  /* Background indicators responsive */
+  .background-indicators {
+    bottom: 20px;
+    gap: 10px;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+
   /* Entry animations for tablet */
   .fade-in {
     transform: translateY(12px);
@@ -1016,6 +1101,17 @@
   .cta-button {
     padding: 12px 25px;
     font-size: 1rem;
+  }
+
+  /* Background indicators mobile */
+  .background-indicators {
+    bottom: 15px;
+    gap: 8px;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
   }
 
   .container {
@@ -1165,5 +1261,57 @@
   }
   .about-text {
     padding: 0;
+  }
+}
+
+/* התאמה למסכים רחבים מאוד */
+@media (min-width: 2560px) {
+  .hero-background {
+    background-size: 100% 100%;
+    background-position: center;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+  }
+
+  .hero h1 {
+    font-size: 5rem;
+  }
+
+  .hero h2 {
+    font-size: 2.5rem;
+  }
+}
+
+/* התאמה למסכים רחבים */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .hero-background {
+    background-size: 100% 100%;
+  }
+
+  .hero-content {
+    max-width: 1000px;
+  }
+}
+
+/* התאמה למסכים בינוניים */
+@media (min-width: 1200px) and (max-width: 1919px) {
+  .hero-background {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+  }
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 1199px) {
+  .hero-background {
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll; /* ביטול fixed במובייל */
   }
 }
