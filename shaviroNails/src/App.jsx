@@ -35,11 +35,9 @@ function App() {
   // תמונות רקע מתחלפות - כאן תוכלי להחליף את התמונות
   const backgroundImages = [
     "/chen-mainPic.jpg", // תמונת רקע ראשונה
-    "main11.png",
-    "/main12.png",
-    "main123.png",
-
-    // תמונת רקע חמישית
+    "/main11.png", // תמונת רקע שנייה
+    "/main12.png", // תמונת רקע שלישית
+    "/main123.png", // תמונת רקע רביעית
   ];
 
   // החלפת תמונות רקע כל 5 שניות
@@ -105,7 +103,6 @@ function App() {
       src: "IMG_0843.jpg",
       alt: "לפני ואחרי ריסים - תמונה מ-Cloudinary",
     },
-   
   ];
 
   return (
